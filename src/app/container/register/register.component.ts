@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { JsonpInterceptor } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import { ContainerService } from 'src/app/services/container.service';
+import { ContentAnimateDirective } from 'src/app/shared/directives/content-animate.directive';
+import { Container } from '../../models/container';
 
 @Component({
   selector: 'app-register',
@@ -6,10 +10,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
-  constructor() { }
+  public container:Container = {containerRef:"", owner:""}
+  constructor(private containerService:ContainerService) { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    // alert( JSON.stringify(this.container))
+    this.containerService.addContainer(this.container).subscribe((res)=> {console.log(`container ADD response ${JSON.stringify(res)}`)});
   }
 
 }
