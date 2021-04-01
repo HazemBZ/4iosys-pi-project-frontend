@@ -30,4 +30,12 @@ export class ContainerService {
     )
 
   }
+
+  public getAllContainers():Observable<Container[]> {
+    const URL = `${this.REGISTRY_ENDPOINT}/allContainers`;
+
+    return this.http.get<Container[]>(URL,this.httpOptions).pipe(
+      tap(_ => console.log(`Received CONTAINERS => ${JSON.stringify(_)}`))
+    );
+  }
 }

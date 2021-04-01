@@ -6,14 +6,16 @@ import {FormsModule} from '@angular/forms'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { RegisterComponent } from './register/register.component';
+import { LookUpComponent } from './look-up/look-up.component';
 
 const routes: Routes = [
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'lookup', component: LookUpComponent}
 ];
 
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, LookUpComponent],
   imports: [
     CommonModule,
     NgbModule,

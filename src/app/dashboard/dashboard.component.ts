@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FixedScaleAxis } from 'chartist';
 import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { ContainerService } from '../services/container.service';
+import {Container} from '../models/container'
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +12,10 @@ import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-boots
 export class DashboardComponent implements OnInit {
 
   @ViewChild('d', {static: false}) datepicker: NgbInputDatepicker;
+
+  // Meine
+  public allContainers:Container[] = [];
+
 
 // Performance indicator chart
   performanceIndicatorBarchartData = {
@@ -160,13 +166,21 @@ export class DashboardComponent implements OnInit {
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 
-  constructor(calendar: NgbCalendar) {
+  constructor(calendar: NgbCalendar, private containerService:ContainerService) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
 
   ngOnInit() {
+    this.fetchContainersData()
+    console.log(`fetched containers ${JSON.stringify(this.allContainers)}`);
   }
+
+  fetchContainersData(){
+    this.containerService.getAllContainers().subscribe((data)=> this.allContainers = data)
+  }
+
+
 
   style = {
     sources: {
