@@ -15,7 +15,7 @@
       <div class="card-body">
         <div class="d-sm-flex align-items-center mb-4">
           <h4 class="card-title mb-sm-0">All Registered Containers</h4>
-          <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> Go To(todo)</a>
+          <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> Go To (todo)</a>
         </div>
         <div class="table-responsive border rounded p-1">
           <table class="table">
@@ -44,9 +44,13 @@
                     <div class="badge badge-success p-2">{{cont.status}}</div>
                   </td>
 
-                  <td><button class="btn btn-outline-secondary btn-rounded btn-icon">
+                  <td><button (click)="unpin(i)" *ngIf="cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">
                     <i class="mdi mdi-pin-off text-danger"></i>
-                  </button></td>
+                  </button>
+                  <button (click)="pin(i)" *ngIf="!cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">
+                    <i class="mdi mdi-pin  text-dark"></i>
+                  </button>
+                </td>
                 </tr>
               </ng-container>
             </tbody>

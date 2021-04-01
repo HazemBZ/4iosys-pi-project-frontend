@@ -12,7 +12,7 @@ import {Container} from '../models/container';
 export class ContainerService {
   private IP = "127.0.0.1";
   private PORT ="3000";
-  private REGISTRY_ENDPOINT = `http://${this.IP}:${this.PORT}/container`;
+  private CONTAINER_ENDPOINT = `http://${this.IP}:${this.PORT}/container`;
 
   private httpOptions = {
     headers: new HttpHeaders(
@@ -24,7 +24,7 @@ export class ContainerService {
 
   public addContainer(container:Container):Observable<any> {
     console.log(`Processing Container obj@addContainer => ${JSON.stringify(container)}`)
-    const URL = `${this.REGISTRY_ENDPOINT}/registry/add`;
+    const URL = `${this.CONTAINER_ENDPOINT}/registry/add`;
     return this.http.post<any>(URL, JSON.stringify(container), this.httpOptions).pipe(
       tap(_ => console.log(`Received CONTAINER => ${JSON.stringify(_)}`))
     )
@@ -32,10 +32,24 @@ export class ContainerService {
   }
 
   public getAllContainers():Observable<Container[]> {
-    const URL = `${this.REGISTRY_ENDPOINT}/allContainers`;
+    const URL = `${this.CONTAINER_ENDPOINT}/allContainers`;
 
     return this.http.get<Container[]>(URL,this.httpOptions).pipe(
       tap(_ => console.log(`Received CONTAINERS => ${JSON.stringify(_)}`))
+    );
+  }
+
+  public pinContainer(reference) {
+    const URL = `${this.CONTAINER_ENDPOINT}/pin/${reference}`;
+    return this.http.put<any>(URL,this.httpOptions).pipe(
+      tap(_ => console.log(`PIN Piped => ${JSON.stringify(_)}`))
+    );
+  }
+
+  public unpinContainer(reference) {
+    const URL = `${this.CONTAINER_ENDPOINT}/unpin/${reference}`
+    return this.http.put<any>(URL,this.httpOptions).pipe(
+      tap(_ => console.log(`UNPIN Piped => ${JSON.stringify(_)}`))
     );
   }
 }

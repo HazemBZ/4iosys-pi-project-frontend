@@ -180,7 +180,10 @@ export class DashboardComponent implements OnInit {
     this.containerService.getAllContainers().subscribe((data)=> this.allContainers = data)
   }
 
-
+  public unpin(index) {
+    console.log(`Unpinning ${JSON.stringify(this.allContainers[index].containerRef)}`);
+    this.containerService.unpinContainer(this.allContainers[index].containerRef).subscribe((data)=> {this.allContainers[index].pinned = false;console.log(JSON.stringify(data))})
+  }
 
   style = {
     sources: {

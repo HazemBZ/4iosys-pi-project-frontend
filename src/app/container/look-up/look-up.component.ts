@@ -19,4 +19,14 @@ export class LookUpComponent implements OnInit {
   fetchContainersData(){
     this.containerService.getAllContainers().subscribe((data)=> this.allContainers = data)
   }
+
+  public pin(index) {
+    console.log(`pinning ${JSON.stringify(this.allContainers[index])}`);
+    this.containerService.pinContainer(this.allContainers[index].containerRef).subscribe((data)=> {this.allContainers[index].pinned = true;console.log(JSON.stringify(data))});;
+  }
+
+  public unpin(index) {
+    console.log(`Unpinning ${JSON.stringify(this.allContainers[index])}`);
+    this.containerService.unpinContainer(this.allContainers[index].containerRef).subscribe((data)=> {this.allContainers[index].pinned = false;console.log(JSON.stringify(data))} );
+  }
 }
