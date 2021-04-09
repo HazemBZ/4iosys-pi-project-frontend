@@ -3,6 +3,7 @@ import  {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Container} from '../models/container';
+import { MeasurementContainer } from '../models/measurementContainer';
 
 // container model for submission
 
@@ -39,6 +40,22 @@ export class ContainerService {
     );
   }
 
+  public getMeasuringContainersRefs():Observable<Container[]> {
+    const URL = `${this.CONTAINER_ENDPOINT}/allContainerRefs`;
+
+    return this.http.get<Container[]>(URL,this.httpOptions).pipe(
+      tap(_ => console.log(`Received Measuring CONTAINERS => ${JSON.stringify(_)}`))
+    );
+  }
+
+  public getMeasurement(contRef):Observable<MeasurementContainer> {
+    const URL = `${this.CONTAINER_ENDPOINT}/measurements/${contRef}`;
+
+    return this.http.get<MeasurementContainer>(URL,this.httpOptions).pipe(
+      tap(_ => console.log(`Received Measrement => ${JSON.stringify(_)}`))
+    );
+  }
+
   public pinContainer(reference) {
     const URL = `${this.CONTAINER_ENDPOINT}/pin/${reference}`;
     return this.http.put<any>(URL,this.httpOptions).pipe(
@@ -52,4 +69,6 @@ export class ContainerService {
       tap(_ => console.log(`UNPIN Piped => ${JSON.stringify(_)}`))
     );
   }
+
+
 }

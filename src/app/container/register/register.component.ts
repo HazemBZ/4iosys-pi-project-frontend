@@ -10,7 +10,7 @@ import { Container } from '../../models/container';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public container:Container = {containerRef:"", owner:"",location:"",destination:"",status:"",last_active:"", pinned:false}
+  public container:Container = {containerRef:"", owner:"",location:"",destination:"",status:"Unknown",last_active:"", pinned:false, location_status:'TRANSIT'}
   constructor(private containerService:ContainerService) { }
 
   ngOnInit(): void {

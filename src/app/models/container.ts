@@ -5,5 +5,6 @@ export interface Container {
   destination:String,
   status:String,
   last_active:String,
-  pinned:Boolean
+  pinned:Boolean,
+  location_status:String,
 }

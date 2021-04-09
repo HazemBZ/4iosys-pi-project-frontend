@@ -21,16 +21,14 @@
             <!-- Container Seletion -->
             <div ngbDropdown>
               <button class="btn btn-secondary" type="button" id="dropdownMenuButton2" ngbDropdownToggle>
-                Dropdown
+                List
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownMenuButton2">
                 <!-- <h6 class="dropdown-header">Settings</h6> -->
-                <option (click)="selectContainer(i)" class="dropdown-item" *ngFor="let cont of containerRefs;let i = index;">{{cont}}</option>
-                <a class="dropdown-item">Action</a>
-                <a class="dropdown-item">Another action</a>
-                <a class="dropdown-item">Something else here</a>
+                <option (click)="selectContainer(i)" class="dropdown-item" *ngFor="let cont of containerRefs;let i = index;">{{cont.containerRef}}</option>
+                <!-- <a class="dropdown-item">Something else here</a> -->
                 <!-- <div class="dropdown-divider"></div> -->
-                <a class="dropdown-item">Separated link</a>
+                <!-- <a class="dropdown-item">Separated link</a> -->
               </div>
             </div>
           </div>
@@ -41,40 +39,48 @@
 </div>
 <!-- TEMPERATURE -->
 <div class="row">
-  <div class="col-lg-6 grid-margin stretch-card">
+  <div class="col-lg-6 grid-margin stretch-card mx-auto">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Temp Line chart</h4>
-        <canvas baseChart [chartType]="'line'" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"></canvas>
+        <canvas baseChart [chartType]="'line'" [datasets]="tempLineChartData" [labels]="tempLineChartLabels" [options]="tempLineChartOptions" [colors]="tempLineChartColors"></canvas>
       </div>
     </div>
   </div>
-  <div class="col-lg-6 grid-margin stretch-card">
+  <!-- <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Temp Bar chart</h4>
-        <canvas baseChart [chartType]="'bar'" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors"></canvas>
+        <canvas baseChart [chartType]="'bar'" [datasets]="tempBarChartData" [labels]="tempBarChartLabels" [options]="tempBarChartOptions" [colors]="tempBarChartColors"></canvas>
       </div>
     </div>
-  </div>
-</div>
-<!-- GAZ -->
-<div class="row">
-  <div class="col-lg-6 grid-margin stretch-card">
+  </div> -->
+  <div class="col-lg-6 grid-margin stretch-card mx-auto">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Gaz Line chart</h4>
-        <canvas baseChart [chartType]="'line'" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"></canvas>
+        <canvas baseChart [chartType]="'line'" [datasets]="gazLineChartData" [labels]="gazLineChartLabels" [options]="gazLineChartOptions" [colors]="gazLineChartColors"></canvas>
       </div>
     </div>
+</div>
+
+<!-- GAZ -->
+<div class="row">
+  <!-- <div class="col-lg-6 grid-margin stretch-card mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Gaz Line chart</h4>
+        <canvas baseChart [chartType]="'line'" [datasets]="gazLineChartData" [labels]="gazLineChartLabels" [options]="gazLineChartOptions" [colors]="gazLineChartColors"></canvas>
+      </div>
+    </div> -->
   </div>
-  <div class="col-lg-6 grid-margin stretch-card">
+  <!-- <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Gaz Bar chart</h4>
-        <canvas baseChart [chartType]="'bar'" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors"></canvas>
+        <canvas baseChart [chartType]="'bar'" [datasets]="gazBarChartData" [labels]="gazBarChartLabels" [options]="gazBarChartOptions" [colors]="gazBarChartColors"></canvas>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 

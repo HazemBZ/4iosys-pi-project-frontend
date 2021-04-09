@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from '@ngx-translate/core';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,14 +12,17 @@ import {TranslateService} from '@ngx-translate/core';
 export class NavbarComponent implements OnInit {
   public iconOnlyToggled = false;
   public sidebarToggled = false;
+  public notifications= []
 
-  constructor(config: NgbDropdownConfig, translate: TranslateService) {
+  constructor(config: NgbDropdownConfig, translate: TranslateService, private notificationService:NotificationService) {
     config.placement = 'bottom-right';
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
+
   }
 
   ngOnInit() {
+    this.notificationService.getAllNotifications().subscribe((res)=>this.notifications = res);
   }
 
   // toggle sidebar in small devices

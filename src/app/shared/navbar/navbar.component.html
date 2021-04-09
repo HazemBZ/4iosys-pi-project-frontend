@@ -10,50 +10,48 @@
     </button>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center">
-    <h5 class="mb-0 font-weight-medium d-none d-lg-flex" translate >Welcome to Backou dashboard!</h5>
+    <h5 class="mb-0 font-weight-medium d-none d-lg-flex" translate >Welcome to Smart Bakou dashboard</h5>
     <ul class="navbar-nav navbar-nav-right">
-      <form class="search-form d-none d-md-block" action="#">
+      <!-- <form class="search-form d-none d-md-block" action="#">
         <i class="icon-magnifier"></i>
         <input type="search" class="form-control" placeholder="{{'Search Here' | translate }}" title="{{'Search Here' | translate }}">
-      </form>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
-      <li class="nav-item"><a href="#" class="nav-link"><i class="icon-chart"></i></a></li>
+      </form> -->
+      <!-- <li class="nav-item"><a href="#" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
+      <li class="nav-item"><a href="#" class="nav-link"><i class="icon-chart"></i></a></li> -->
       <li class="nav-item dropdown" ngbDropdown>
         <a class="nav-link count-indicator message-dropdown" id="messageDropdown" aria-expanded="false" ngbDropdownToggle>
           <i class="icon-speech"></i>
           <span class="count">7</span>
         </a>
+        <!-- NOTIFICATIONS START -->
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown" ngbDropdownMenu>
-          <a class="dropdown-item py-3">
+          <!-- <a class="dropdown-item py-3">
             <p class="mb-0 font-weight-medium float-left" translate >You have 7 unread mails</p>
             <span class="badge badge-pill badge-primary float-right" translate>View all</span>
-          </a>
+          </a> -->
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <img src="assets/images/faces/face10.jpg" alt="image" class="img-sm profile-pic"> </div>
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-              <p class="font-weight-light small-text" translate >The meeting is cancelled</p>
-            </div>
-          </a>
-          <a class="dropdown-item preview-item">
+
+          <ng-container *ngFor="let notif of notifications">
+            <a class="dropdown-item preview-item" >
+              <div class="preview-thumbnail">
+                <img src="assets/images/faces/face10.jpg" alt="image" class="img-sm profile-pic"> </div>
+              <div class="preview-item-content flex-grow py-2">
+                <p class="preview-subject ellipsis font-weight-medium text-dark">{{notif.object}}</p>
+                <p class="font-weight-light small-text" translate >{{notif.content}}</p>
+              </div>
+            </a>
+          </ng-container>
+          <!-- <a class="dropdown-item preview-item">
             <div class="preview-thumbnail">
               <img src="assets/images/faces/face12.jpg" alt="image" class="img-sm profile-pic"> </div>
             <div class="preview-item-content flex-grow py-2">
               <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
               <p class="font-weight-light small-text" translate >The meeting is cancelled</p>
             </div>
-          </a>
-          <a class="dropdown-item preview-item">
-            <div class="preview-thumbnail">
-              <img src="assets/images/faces/face1.jpg" alt="image" class="img-sm profile-pic"> </div>
-            <div class="preview-item-content flex-grow py-2">
-              <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
-              <p class="font-weight-light small-text" translate >The meeting is cancelled</p>
-            </div>
-          </a>
+          </a> -->
+
         </div>
+        <!-- NOTIFICATION END -->
       </li>
       <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center" ngbDropdown>
         <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" ngbDropdownToggle aria-expanded="false">
@@ -75,12 +73,12 @@
       </li>
       <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown" ngbDropdown>
         <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle aria-expanded="false">
-          <img class="img-xs rounded-circle ml-2" src="assets/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> Henry Klein </span></a>
+          <img class="img-xs rounded-circle ml-2" src="assets/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal"> Wild Walid </span></a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" ngbDropdownMenu aria-labelledby="UserDropdown">
           <div class="dropdown-header text-center">
             <img class="img-md rounded-circle" src="assets/images/faces/face8.jpg" alt="Profile image">
-            <p class="mb-1 mt-3">Henry Klein</p>
-            <p class="font-weight-light text-muted mb-0">kleinhenry@gmail.com</p>
+            <p class="mb-1 mt-3">Wild Walid</p>
+            <p class="font-weight-light text-muted mb-0">wwalid@gmail.com</p>
           </div>
           <a class="dropdown-item"><i class="dropdown-item-icon icon-user text-primary"></i> <span translate>My Profile</span> <span class="badge badge-pill badge-danger">1</span></a>
           <a class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i> <span translate>Messages</span></a>

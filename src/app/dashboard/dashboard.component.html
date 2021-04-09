@@ -15,7 +15,7 @@
             <div class="inner-card-text">
               <span class="report-title">REACHED DESTINATION</span>
               <h4>$COUNT</h4>
-              <span class="report-count"> 2 Reports</span>
+              <!-- <span class="report-count"> 2 Reports</span> -->
             </div>
             <div class="inner-card-icon bg-success">
               <i class="icon-rocket"></i>
@@ -25,7 +25,7 @@
             <div class="inner-card-text">
               <span class="report-title">IN TRANSIT</span>
               <h4>$COUNT</h4>
-              <span class="report-count"> 5 Reports</span>
+              <!-- <span class="report-count"> 5 Reports</span> -->
             </div>
             <div class="inner-card-icon bg-warning">
               <i class="icon-globe-alt"></i>
@@ -35,7 +35,7 @@
             <div class="inner-card-text">
               <span class="report-title">BEHIND SCHEDULE</span>
               <h4>$COUNT</h4>
-              <span class="report-count"> 3 Reports</span>
+              <!-- <span class="report-count"> 3 Reports</span> -->
             </div>
             <div class="inner-card-icon bg-danger">
               <i class="icon-briefcase"></i>
@@ -89,7 +89,7 @@
                   <td>{{cont.destination}}</td>
                   <td>{{cont.last_active}}</td>
                   <td>
-                    <div class="badge badge-success p-2">{{cont.status}}</div>
+                    <div [class]="cont.status == 'GOOD'?'badge badge-success p-2':cont.status == 'BAD'?'badge badge-danger p-2':'badge badge-dark p-2' ">{{cont.status}}</div>
                   </td>
 
                   <td><button (click)="unpin(i)" class="btn btn-outline-secondary btn-rounded btn-icon">
@@ -125,20 +125,20 @@
     <div class="card">
       <div class="card-header d-block d-md-flex">
         <h5 class="mb-0">Quick Actions</h5>
-        <p class="ml-auto mb-0">How are your active users trending overtime?<i class="icon-bulb"></i></p>
+        <!-- <p class="ml-auto mb-0">How are your active users trending overtime?<i class="icon-bulb"></i></p> -->
       </div>
       <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
-        <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-          <button type="button" class="btn px-0"> <i class="icon-user mr-2"></i> Add Client</button>
+        <div class="col-sm-6 col-md-4 p-3 text-center btn-wrapper">
+          <button type="button" class="btn px-0" > <i class="icon-user mr-2"></i> <a routerLink="/containers/register">Register Container</a></button>
         </div>
-        <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-          <button type="button" class="btn px-0"><i class="icon-docs mr-2"></i> Create Quote</button>
+        <div class="col-sm-6 col-md-4 p-3 text-center btn-wrapper">
+          <button type="button" class="btn px-0"><i class="icon-docs mr-2"></i> Report</button>
         </div>
-        <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
+        <!-- <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
           <button type="button" class="btn px-0"><i class="icon-folder mr-2"></i> Enter Payment</button>
-        </div>
-        <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-          <button type="button" class="btn px-0"><i class="icon-book-open mr-2"></i>Create Invoice</button>
+        </div> -->
+        <div class="col-sm-6 col-md-4 p-3 text-center btn-wrapper">
+          <button type="button" class="btn px-0"><i class="icon-book-open mr-2"></i>Notify</button>
         </div>
       </div>
     </div>
@@ -146,211 +146,4 @@
 </div>
 <!-- Quick Action Toolbar Ends-->
 
-<div class="row">
-  <div class="col-xl-8 grid-margin stretch-card">
-    <div class="card sales-report-country">
-      <div class="card-body">
-        <div class="d-md-flex">
-          <h4 class="card-title">Sales Performance by Country</h4>
-          <div class="mb-2 m-md-0 ml-md-auto">
-            <a href="#" class="text-secondary mr-3"><i class="icon-cloud-upload mr-3"></i> Export File</a>
-            <a href="#" class="text-secondary mr-3"><i class="icon-printer mr-3"></i>Print File</a>
-          </div>
-        </div>
-        <div class="row my-xl-3">
-          <div class="col-md-12 d-md-flex">
-            <div>
-              <h1 class="font-weight-bold mb-0">136,356.00</h1>
-              <p class="text-muted">+23 since last year</p>
-            </div>
-            <div class="ml-md-3">
-              <p class="mb-0 mt-2">Sales performance of all states in the world</p>
-              <p class="mb-0">This is your most recent earnings for today's date.</p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-4 pt-3">
-            <div class="row">
-              <div class="pb-xl-3 col-sm-6 col-xl-12 sales-activity">
-                <p class="mb-1">Activations</p>
-                <h1 class="font-weight-bold mb-0 text-info">156,123</h1>
-                <p class="text-muted">Updated-6:16 pm</p>
-              </div>
-              <div class="pt-xl-3 col-sm-6 col-xl-12 sales-activity">
-                <p class="mb-0">Net Revenue</p>
-                <h1 class="font-weight-bold mb-0 text-primary">331,520</h1>
-                <p class="text-muted pb-0">Updated-5:14 pm</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-8">
-            <mgl-map [style]="style" [zoom]="[0.1]"></mgl-map>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-4 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-sm-flex align-items-center">
-          <h4 class="card-title mb-0">Latest Activity</h4>
-          <a href="#" class="btn btn-outline-info border-0 font-weight-semibold ml-auto p-0 btn-no-hover-bg">View more</a>
-        </div>
-        <div class="d-flex mt-4 py-3 border-bottom">
-          <img class="img-sm rounded-circle" src="assets/images/faces/face3.jpg" alt="profile image">
-          <div class="wrapper ml-2">
-            <p class="mb-1 font-weight-medium">Mobile Apps Redesign</p>
-            <small class="text-muted">+23 since last year</small>
-          </div>
-          <small class="text-muted ml-auto">10:07PM</small>
-        </div>
-        <div class="d-flex py-3 border-bottom">
-          <img class="img-sm rounded-circle" src="assets/images/faces/face2.jpg">
-          <div class="wrapper ml-2">
-            <p class="mb-1 font-weight-medium">Inviting Join Apps Cont...</p>
-            <small class="text-muted">+23 since last year</small>
-          </div>
-          <small class="text-muted ml-auto">01:07AM</small>
-        </div>
-        <div class="d-flex py-3 border-bottom">
-          <img class="img-sm rounded-circle" src="assets/images/faces/face4.jpg" alt="profile image">
-          <div class="wrapper ml-2">
-            <p class="mb-1 font-weight-medium">Website Redesign</p>
-            <small class="text-muted">+23 since last year</small>
-          </div>
-          <small class="text-muted ml-auto">04:42AM</small>
-        </div>
-        <div class="d-flex py-3  border-bottom">
-          <img class="img-sm rounded-circle" src="assets/images/faces/face8.jpg">
-          <div class="wrapper ml-2">
-            <p class="mb-1 font-weight-medium">Analytics Dashboard</p>
-            <small class="text-muted">+23 since last year</small>
-          </div>
-          <small class="text-muted ml-auto">07:44PM</small>
-        </div>
-        <div class="d-flex pt-3">
-          <img class="img-sm rounded-circle" src="assets/images/faces/face7.jpg">
-          <div class="wrapper ml-2">
-            <p class="mb-1 font-weight-medium">Great Logo Design</p>
-            <small class="text-muted">+23 since last year</small>
-          </div>
-          <small class="text-muted ml-auto">10:49AM</small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-
-<div class="row">
-    <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-      <div class="card sessions-progress-bar-card">
-        <div class="card-body">
-          <h4 class="card-title">Sessions by Countries</h4>
-          <ul class="dashboard-progress-bar-wrapper m-0">
-            <li>
-              <div class="d-flex justify-content-between">
-                <h6>1. Netherlands</h6>
-                <p class="font-weight-semibold">$380.50 <span class="text-muted font-weight-normal">(1.51%)</span></p>
-              </div>
-              <div class="progress progress-md">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex justify-content-between">
-                <h6>2. United States</h6>
-                <p class="font-weight-semibold">$503.20 <span class="text-muted font-weight-normal">(13.45%)</span></p>
-              </div>
-              <div class="progress progress-md">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 75%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex justify-content-between">
-                <h6>3. United kingdom</h6>
-                <p class="font-weight-semibold">$421.80 <span class="text-muted font-weight-normal">(1.51%)</span></p>
-              </div>
-              <div class="progress progress-md">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex justify-content-between">
-                <h6>4. Canada</h6>
-                <p class="font-weight-semibold">$850.30 <span class="text-muted font-weight-normal">(1.51%)</span></p>
-              </div>
-              <div class="progress progress-md">
-                <div class="progress-bar bg-warning" role="progressbar" style="width: 55%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex justify-content-between">
-                <h6>5. Australia</h6>
-                <p class="font-weight-semibold">$380.50 <span class="text-muted font-weight-normal">(1.51%)</span></p>
-              </div>
-              <div class="progress progress-md">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-      <div class="card dashboard-inline-datepicker datepicker-custom">
-        <div class="card-body">
-          <ngb-datepicker [navigation]="'arrows'"></ngb-datepicker>
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-4 grid-margin stretch-card">
-      <div class="card quick-status-card">
-        <div class="card-body">
-          <h4 class="card-title">Quick Status</h4>
-          <div class="row">
-            <div class="col-md-6">
-              <circle-progress
-                [percent]="74"
-                [outerStrokeColor]="'#1bdbe0'"
-                [subtitle]="'Expense'"
-              ></circle-progress>
-            </div>
-            <div class="col-md-6">
-              <circle-progress
-                [percent]="56"
-                [outerStrokeColor]="'#8e32e9'"
-                [subtitle]="'Income'"
-              ></circle-progress>
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-12">
-              <div class="wrapper py-4 d-flex border-bottom">
-                <span class="icon-holder">
-                  <i class="icon-wallet"></i>
-                </span>
-                <div class="ml-3">
-                  <p class="mb-1">My Balance</p>
-                  <h6 class="mb-0">$5021.00</h6>
-                </div>
-                <div class="ml-auto"><i class="icon-arrow-down-circle"></i><span class="text-muted ml-2">2.87 %</span></div>
-              </div>
-              <div class="wrapper py-4 d-flex">
-                <span class="icon-holder">
-                  <i class="icon-basket-loaded"></i>
-                </span>
-                <div class="ml-3">
-                  <p class="mb-1">Sales Revenue</p>
-                  <h6 class="mb-0">24,301.00</h6>
-                </div>
-                <div class="ml-auto"><i class="icon-arrow-down-circle"></i><span class="text-muted ml-2">2.87 %</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>

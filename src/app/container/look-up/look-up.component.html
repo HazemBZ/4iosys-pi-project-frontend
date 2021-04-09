@@ -41,7 +41,7 @@
                   <td>{{cont.destination}}</td>
                   <td>{{cont.last_active}}</td>
                   <td>
-                    <div class="badge badge-success p-2">{{cont.status}}</div>
+                    <div [class]="cont.status == 'GOOD'?'badge badge-success p-2':cont.status == 'BAD'?'badge badge-danger p-2':'badge badge-dark p-2' ">{{cont.status}}</div>
                   </td>
 
                   <td><button (click)="unpin(i)" *ngIf="cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">

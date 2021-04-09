@@ -13,10 +13,10 @@
           <p class="profile-name">Wild Walid</p>
           <p class="designation" translate>Administrator</p>
         </div>
-        <div class="icon-container">
+        <!-- <div class="icon-container">
           <i class="icon-bubbles"></i>
           <div class="dot-indicator bg-danger"></div>
-        </div>
+        </div> -->
       </a>
     </li>
     <li class="nav-item nav-category">
@@ -46,7 +46,7 @@
       </div>
     </li>
     <!-- TOOLS END -->
-
+    <div class="hidden">
     <li class="nav-item nav-category"><span class="nav-link" translate>UI Elements</span></li>
     <li class="nav-item" [ngClass]="{'active' : buttons.isActive || dropdowns.isActive || typography.isActive }">
       <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed" aria-controls="ui-basic">
@@ -137,5 +137,6 @@
         <i class="icon-folder-alt menu-icon"></i>
       </a>
     </li>
+  </div>
   </ul>
 </nav>
