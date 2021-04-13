@@ -27,6 +27,8 @@
                 <th class="font-weight-bold">Destination</th>
                 <th class="font-weight-bold">Last Active</th>
                 <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Departure</th>
+                <th class="font-weight-bold">Arrival</th>
                 <th class="font-weight-bold"></th>
               </tr>
             </thead>
@@ -43,14 +45,16 @@
                   <td>
                     <div [class]="cont.status == 'GOOD'?'badge badge-success p-2':cont.status == 'BAD'?'badge badge-danger p-2':'badge badge-dark p-2' ">{{cont.status}}</div>
                   </td>
-
-                  <td><button (click)="unpin(i)" *ngIf="cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">
-                    <i class="mdi mdi-pin-off text-danger"></i>
-                  </button>
-                  <button (click)="pin(i)" *ngIf="!cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">
-                    <i class="mdi mdi-pin  text-dark"></i>
-                  </button>
-                </td>
+                  <td>{{cont.departureTime?cont.departureTime:'None'}}</td>
+                  <td>{{cont.arrivalTime?cont.arrivalTime:'None'}}</td>
+                  <td>
+                    <button (click)="unpin(i)" *ngIf="cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">
+                      <i class="mdi mdi-pin-off text-danger"></i>
+                    </button>
+                    <button (click)="pin(i)" *ngIf="!cont.pinned" class="btn btn-outline-secondary btn-rounded btn-icon">
+                      <i class="mdi mdi-pin  text-dark"></i>
+                    </button>
+                  </td>
                 </tr>
               </ng-container>
             </tbody>

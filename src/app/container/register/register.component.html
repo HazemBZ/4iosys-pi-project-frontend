@@ -31,6 +31,14 @@
             <label for="owner">Owner</label>
             <input name="owner" [(ngModel)]="container.owner" type="text" class="form-control" id="owner" placeholder="Owner">
           </div>
+          <div class="form-group">
+            <label for="departureTime">Departure</label>
+            <input name="departureTime" [(ngModel)]="container.departureTime" type="date" class="form-control" id="departureTime" >
+          </div>
+          <div class="form-group">
+            <label for="arrival_time">Arrival</label>
+            <input name="arrivalTime" [(ngModel)]="container.arrivalTime" type="date" class="form-control" id="arrivalTime" >
+          </div>
           <button type="submit" class="btn btn-primary mr-2">Submit</button>
           <button class="btn btn-light">Cancel</button>
         </form>

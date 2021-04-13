@@ -15,6 +15,9 @@ export class DashboardComponent implements OnInit {
 
   // Meine
   public allContainers:Container[] = [];
+  public reached = 0;
+  public transit = 0;
+  public behind = 0;
 
 
 // Performance indicator chart
@@ -170,14 +173,39 @@ export class DashboardComponent implements OnInit {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
-
+  // ===== View OnInit
   ngOnInit() {
-    this.fetchContainersData()
+    this.fetchContainersData(this.countTravelStats)
     console.log(`fetched containers ${JSON.stringify(this.allContainers)}`);
   }
 
-  fetchContainersData(){
-    this.containerService.getAllContainers().subscribe((data)=> this.allContainers = data)
+  fetchContainersData(clb=null){
+    this.containerService.getAllContainers().subscribe((data)=> {this.allContainers = data;  this.countTravelStats(data)})
+  }
+
+  countTravelStats(containers:Container[]){
+    console.log('Counting ...')
+
+    containers.forEach((cont)=> {
+      console.log(`Couting Using ${JSON.stringify(cont)}`)
+      if(cont.arrived) this.reached ++;
+      else {
+        console.log(`${cont.arrivalTime} > ${new Date()} == ${new Date(cont.arrivalTime) > new Date()}`)
+        if(new Date(cont.arrivalTime) > new Date()) this.transit ++;
+        else this.behind ++;
+      }
+    })
+  }
+
+  public updateReport() {
+    this.resetReport();
+    this.fetchContainersData();
+  }
+
+  resetReport(){
+    this.reached = 0;
+    this.transit = 0;
+    this.behind = 0;
   }
 
   public unpin(index) {

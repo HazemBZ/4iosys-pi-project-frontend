@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="d-sm-flex align-items-baseline report-summary-header">
-              <h5 class="font-weight-semibold">Report Summary</h5> <span class="ml-auto">Update Report</span> <button class="btn btn-icons border-0 p-2"><i class="icon-refresh"></i></button>
+              <h5 class="font-weight-semibold">Report Summary</h5> <span class="ml-auto">Update Report</span> <button (click)="updateReport()" class="btn btn-icons border-0 p-2"><i class="icon-refresh"></i></button>
             </div>
           </div>
         </div>
@@ -14,7 +14,7 @@
           <div class=" col-md -6 col-xl report-inner-card">
             <div class="inner-card-text">
               <span class="report-title">REACHED DESTINATION</span>
-              <h4>$COUNT</h4>
+              <h4>{{reached}}</h4>
               <!-- <span class="report-count"> 2 Reports</span> -->
             </div>
             <div class="inner-card-icon bg-success">
@@ -24,7 +24,7 @@
           <div class="col-md-6 col-xl report-inner-card">
             <div class="inner-card-text">
               <span class="report-title">IN TRANSIT</span>
-              <h4>$COUNT</h4>
+              <h4>{{transit}}</h4>
               <!-- <span class="report-count"> 5 Reports</span> -->
             </div>
             <div class="inner-card-icon bg-warning">
@@ -34,7 +34,7 @@
           <div class="col-md-6 col-xl report-inner-card">
             <div class="inner-card-text">
               <span class="report-title">BEHIND SCHEDULE</span>
-              <h4>$COUNT</h4>
+              <h4>{{behind}}</h4>
               <!-- <span class="report-count"> 3 Reports</span> -->
             </div>
             <div class="inner-card-icon bg-danger">
@@ -73,8 +73,11 @@
                 <th class="font-weight-bold">Owner</th>
                 <th class="font-weight-bold">Location</th>
                 <th class="font-weight-bold">Destination</th>
-                <th class="font-weight-bold">Last Active</th>
+                <!-- <th class="font-weight-bold">Last Active</th> -->
                 <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Departure</th>
+                <th class="font-weight-bold">Arrival</th>
+                <th class="font-weight-bold">Arrived</th>
                 <th class="font-weight-bold"></th>
               </tr>
             </thead>
@@ -87,14 +90,19 @@
                     </td>
                   <td>{{cont.location}}</td>
                   <td>{{cont.destination}}</td>
-                  <td>{{cont.last_active}}</td>
+                  <!-- <td>{{cont.last_active}}</td> -->
                   <td>
                     <div [class]="cont.status == 'GOOD'?'badge badge-success p-2':cont.status == 'BAD'?'badge badge-danger p-2':'badge badge-dark p-2' ">{{cont.status}}</div>
                   </td>
+                  <td>{{cont.departureTime?cont.departureTime:'None'}}</td>
+                  <td>{{cont.arrivalTime?cont.arrivalTime:'None'}}</td>
+                  <td>{{cont.arrived?'Yes':'No'}}</td>
+                  <td>
+                    <button (click)="unpin(i)" class="btn btn-outline-secondary btn-rounded btn-icon">
+                      <i class="mdi mdi-pin-off text-danger"></i>
+                    </button>
+                  </td>
 
-                  <td><button (click)="unpin(i)" class="btn btn-outline-secondary btn-rounded btn-icon">
-                    <i class="mdi mdi-pin-off text-danger"></i>
-                  </button></td>
                 </tr>
               </ng-container>
             </tbody>
