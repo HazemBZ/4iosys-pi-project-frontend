@@ -9,5 +9,6 @@ export interface Container {
   location_status:String,
   departureTime:Date,
   arrivalTime:Date,
-  arrived: Boolean
+  arrived: Boolean,
+  door: Boolean
 }

@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FixedScaleAxis } from 'chartist';
 import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { ContainerService } from '../services/container.service';
 import {Container} from '../models/container'
+// import * as mqtt from 'mqtt';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit{
 
   @ViewChild('d', {static: false}) datepicker: NgbInputDatepicker;
 
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
   public reached = 0;
   public transit = 0;
   public behind = 0;
+
 
 
 // Performance indicator chart
@@ -177,7 +179,29 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.fetchContainersData(this.countTravelStats)
     console.log(`fetched containers ${JSON.stringify(this.allContainers)}`);
+
   }
+
+  ngAfterViewInit() {
+    // this.hookToDoor()
+  }
+
+  // hookToDoor(){ // for all containers listen to their door channel
+  //   let MQTT_SERVER_URI = "mqtt://localhost"; // whilst on same device
+  // let client = mqtt.connect(MQTT_SERVER_URI)
+  //   this.allContainers.forEach((cont) => {
+  //     client.subscribe(`${cont.containerRef}/door`, (err) => {
+  //       if(err)  console.log(`container ${cont.containerRef} subscription error`)
+  //     })
+  //   })
+
+  //   client.on('message', (topic, message)=> {
+  //     let ref = topic.split('/')[0];
+  //     this.allContainers.forEach((cont, ind) => {
+  //       // if(cont.containerRef == ref ) this.allContainers[ind].door = parseInt(message.toString()) == 1?true:false;
+  //     })
+  //   })
+  // }
 
   fetchContainersData(clb=null){
     this.containerService.getAllContainers().subscribe((data)=> {this.allContainers = data;  this.countTravelStats(data)})

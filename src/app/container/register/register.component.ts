@@ -16,7 +16,8 @@ export class RegisterComponent implements OnInit {
     status:"Unknown",last_active:"",
     pinned:false, location_status:'TRANSIT',
     arrivalTime: null, departureTime: null,
-    arrived: false
+    arrived: false,
+    door: true // door is closed(button pushed) by default
 }
   constructor(private containerService:ContainerService) { }
 

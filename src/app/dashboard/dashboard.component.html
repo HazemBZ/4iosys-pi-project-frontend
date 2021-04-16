@@ -69,7 +69,8 @@
           <table class="table">
             <thead>
               <tr>
-                <th class="font-weight-bold">Container </th>
+                <th class="font-weight-bold">Door</th>
+                <th class="font-weight-bold">Container</th>
                 <th class="font-weight-bold">Owner</th>
                 <th class="font-weight-bold">Location</th>
                 <th class="font-weight-bold">Destination</th>
@@ -84,6 +85,7 @@
             <tbody>
               <ng-container *ngFor="let cont of allContainers; let i = index" >
                 <tr id="{{i}}" *ngIf="cont.pinned">
+                  <td> <i [class]="cont.door?'mdi mdi-checkbox-marked-circle text-success':'mdi mdi-alert text-danger'"></i></td>
                   <td>{{cont.containerRef}}</td>
                     <td>
                       <img  class="img-sm rounded-circle" src="assets/images/faces/face1.jpg" alt="profile image"> {{cont.owner}}
