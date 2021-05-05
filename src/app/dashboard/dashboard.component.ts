@@ -3,7 +3,13 @@ import { FixedScaleAxis } from 'chartist';
 import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { ContainerService } from '../services/container.service';
 import {Container} from '../models/container'
+import { StaticDataService } from '../services/static-data.service';
+// import * as am4code from
 // import * as mqtt from 'mqtt';
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4maps from '@amcharts/amcharts4/maps';
+import am4geodata_wordLow from '@amcharts/amcharts4-geodata/worldLow';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +18,7 @@ import {Container} from '../models/container'
 })
 export class DashboardComponent implements OnInit, AfterViewInit{
 
-  @ViewChild('d', {static: false}) datepicker: NgbInputDatepicker;
+
 
   // Meine
   public allContainers:Container[] = [];
@@ -20,170 +26,114 @@ export class DashboardComponent implements OnInit, AfterViewInit{
   public transit = 0;
   public behind = 0;
 
+  // Map related Data
+  public codeToCountryEntries = null;
+  public selectedCountry = 'None'
+  map = null;
+  lineSeries = null;
+  imageSeries = null;
+
+  //// Route data
+  source = null; // {"latitude": 48.856614, "longitude": 2.352222 };
+  current = null; //{ "latitude": 40.712775, "longitude": -74.005973 };
+  destination = null; //{ "latitude": 49.282729, "longitude": -123.120738 };
 
 
-// Performance indicator chart
-  performanceIndicatorBarchartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'may', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    series: [
-      [30, 25, 50, 25, 50, 25, 50, 55, 20, 35, 25, 30 ],
-      [25, 50, 10, 35, 30, 15, 20, 20, 30, 25, 10, 15 ],
-      [45, 25, 40, 40, 20, 60, 30, 25, 50, 40, 65, 55 ]
-    ]
-  };
 
-  performanceIndicatorBarchartOptions = {
-    stackBars: true,
-            height: 200,
-            axisY: {
-              type: FixedScaleAxis,
-              ticks: [0, 25, 50, 75, 100]
-            },
-            showGridBackground: false
-  };
 
-  performanceIndicatorBarchartResponsiveOptions = [
-    ['screen and (max-width: 480px)', {
-      height: 150,
-    }]
-  ];
+  constructor( private containerService:ContainerService, private staticDataService:StaticDataService) {
 
-  // Sessions by channel doughnut chart
-
-  doughnutPieData = [{
-    data: [55, 25, 20],
-    backgroundColor: [
-        '#ffca00',
-        '#38ce3c',
-        '#ff4d6b'
-    ],
-    borderColor: [
-      '#ffca00',
-      '#38ce3c',
-      '#ff4d6b'
-    ],
-  }];
-
-  doughnutPieLabels: [
-    'Reassigned',
-    'Not Assigned',
-    'Assigned'
-  ];
-  doughnutPieOptions = {
-    cutoutPercentage: 75,
-    animationEasing: 'easeOutBounce',
-    animateRotate: true,
-    animateScale: false,
-    responsive: true,
-    maintainAspectRatio: true,
-    showScale: true,
-    legend: {
-        display: false
-    },
-    layout: {
-      padding: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0
-      }
-    }
-  };
-
-  // Income expense chart date range picker properties
-
-  hoveredDate: NgbDate;
-
-  fromDate: NgbDate;
-  toDate: NgbDate;
-  onFirstSelection: boolean = true;
-
-  // Income expense chart
-
-  incomeExpenseSummaryChartData = {
-    // A labels array that can contain any sort of values
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    // Our series array that contains series objects or in this case series data arrays
-    series: [
-      [505, 781, 480, 985, 410, 822, 388, 874, 350, 642, 320, 796],
-      [700, 430, 725, 390, 686, 392, 757, 500, 820, 400, 962, 420]
-    ]
-  };
-
-  incomeExpenseSummaryChartOptions = {
-    height: 300,
-    axisY: {
-      high: 1000,
-      low: 250,
-      referenceValue: 1000,
-      type: FixedScaleAxis,
-      ticks: [250, 500, 750, 1000]
-    },
-    showArea: true,
-    showPoint: false,
-    fullWidth: true
-  };
-
-  incomeExpenseSummaryChartResponsiveOptions = [
-    ['screen and (max-width: 480px)', {
-      height: 150,
-      axisX: {
-        labelInterpolationFnc: (value) => value,
-      }
-    }]
-  ];
-
-  // Income expense chart date range picker methods
-
-  onDateSelection(date: NgbDate) {
-    console.log(date);
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-      this.onFirstSelection = false;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
-      this.onFirstSelection = true;
-      this.datepicker.close();
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-      this.onFirstSelection = false;
-    }
-  }
-
-  toNativeDate(date:NgbDate) {
-    if(date){
-      return new Date(date.year, date.month, date.day);
-    }else {
-      return "";
-    }
-  }
-
-  isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-  }
-
-  isInside(date: NgbDate) {
-    return date.after(this.fromDate) && date.before(this.toDate);
-  }
-
-  isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
-  }
-
-  constructor(calendar: NgbCalendar, private containerService:ContainerService) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
   // ===== View OnInit
   ngOnInit() {
     this.fetchContainersData(this.countTravelStats)
     console.log(`fetched containers ${JSON.stringify(this.allContainers)}`);
+    this.codeToCountryEntries = Object.entries(this.staticDataService.codeToCountry);
 
   }
 
   ngAfterViewInit() {
+
+
+    this.codeToCountryEntries = Object.entries(this.staticDataService.codeToCountry);
     // this.hookToDoor()
+
+    this.map = am4core.create('mapdiv', am4maps.MapChart);  // create chart instance inside a container with specified id
+    this.map.geodata = am4geodata_wordLow; // set map definition
+    this.map.projection = new am4maps.projections.Miller(); // set map projection (sphere to rectangle)
+
+    let polygonSeries = new am4maps.MapPolygonSeries(); // used to know how to draw
+    this.map.series.push(polygonSeries); //
+    polygonSeries.useGeodata = true;  // Part 1: bleak world map
+
+    // polygonSeries.mapPolygons.template
+    // polygonSeries.exclude = ['AQ', 'US'] // exclude map objects
+    // polygonSeries.data = [
+    //   {
+    //     "id": "US",
+    //     "name": "United States",
+    //     "value": 100
+    //   }, {
+    //     "id": "FR",
+    //     "name": "France",
+    //     "value": 50
+    //   }
+    // ]
+
+
+    // Part2: add color and tooltip data to map polygons
+    let polygonTemplate = polygonSeries.mapPolygons.template; // template access to configure appearance and behavior
+    polygonTemplate.tooltipText = "{name}";
+    polygonTemplate.fill = am4core.color("#74B266");
+
+    // let hs = polygonTemplate.states.create('hover') // hover state access
+    // hs.properties.fill = am4core.color("#367B25");
+
+
+    // Part3: draw container itenarary/route
+
+
+    this.lineSeries = this.map.series.push(new am4maps.MapLineSeries());
+    /*
+    this.lineSeries.data = [{
+      "multiGeoLine": [
+          [
+            this.source,
+            this.current,
+            this.destination
+          ]
+      ]
+    }] */
+
+  // Part4: image series: for visuals customization
+  this.imageSeries = this.map.series.push(new am4maps.MapImageSeries());
+
+  let imageSeriesTemplate = this.imageSeries.mapImages.template;
+  let circle = imageSeriesTemplate.createChild(am4core.Circle);
+  circle.radius = 4;
+  circle.fill = am4core.color("#B27799");
+  circle.stroke = am4core.color("#FFFFFF");
+  circle.strokeWidth = 2;
+  circle.nonScaling = true;
+  circle.tooltipText = "{title}";
+
+  imageSeriesTemplate.propertyFields.latitude = "latitude";
+  imageSeriesTemplate.propertyFields.longitude = "longitude";
+
+  /* this.imageSeries.data = [{
+  "latitude": 48.856614,
+  "longitude": 2.352222,
+  "title": "Paris"
+  }, {
+  "latitude": 40.712775,
+  "longitude": -74.005973,
+  "title": "New York"
+  }, {
+  "latitude": 49.282729,
+  "longitude": -123.120738,
+  "title": "Vancouver"
+  }]; */
+
   }
 
   // hookToDoor(){ // for all containers listen to their door channel
@@ -237,34 +187,57 @@ export class DashboardComponent implements OnInit, AfterViewInit{
     this.containerService.unpinContainer(this.allContainers[index].containerRef).subscribe((data)=> {this.allContainers[index].pinned = false;console.log(JSON.stringify(data))})
   }
 
-  style = {
-    sources: {
-      world: {
-        type: "geojson",
-        data: "assets/world.geo.json"
-      }
-    },
-    version: 8,
-    layers: [
-      {
-        "id": "countries-fill",
-        "type": "fill",
-        "source": "world",
-        "layout": {},
-        "paint": {
-          'fill-color': '#000000',
-        },
-      },
-      {
-        "id": "countries-border",
-        "type": "line",
-        "source": "world",
-        "layout": {},
-        "paint": {
-          'line-color': '#ffffff',
-        },
-      }
-    ]
-  }
+  // ==== MAP Related ====
 
+
+  selectContainerForMap(index){
+    alert(`container ${JSON.stringify(this.allContainers[index])}`)
+    let source = this.allContainers[index].source;
+    let current = this.allContainers[index].location;
+    let destination = this.allContainers[index].destination;
+    alert(`source: ${source}, current:${current}, destination:${destination}`)
+
+    // let country = code_country.split(',')[1].trim();
+    // alert(`"${country}" selected\n `);
+    let source_coord = this.staticDataService.countryToPosition[source.toString()]
+    let current_coord = this.staticDataService.countryToPosition[current.toString()]
+    let dest_coord = this.staticDataService.countryToPosition[destination.toString()];
+    console.log(`source coord:${JSON.stringify(source_coord)}, destination coord${JSON.stringify(dest_coord)}`);
+    // this.current = current_coord;
+    // this.destination = dest_coord;
+
+
+    // this.lineSeries = this.map.series.push(new am4maps.MapLineSeries());
+    // Line Series data update
+    this.lineSeries.data = [{
+      "multiGeoLine": [
+          [
+            source_coord,
+           current_coord?current_coord:source_coord,
+            dest_coord
+          ]
+      ]
+    }]
+
+    alert(`line series ${this.lineSeries}`)
+
+    // Image Series data update
+    this.imageSeries.data = [{
+      "latitude":source_coord['latitude'],
+      "longitude":source_coord['longitude'],
+      "title": "Source"
+    },
+    // {
+    //   "latitude": this.current?["latitude"]: this.source['latitude'],
+    //   "longitude": this.current?["longitude"]: this.source['longitude'],
+    //   "title": "Current position"
+    // },
+    {
+      "latitude": dest_coord['latitude'],
+      "longitude": dest_coord['longitude'],
+      "title": "Destination"
+    }
+  ];
+
+  }
 }

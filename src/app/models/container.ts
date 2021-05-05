@@ -1,6 +1,7 @@
 export interface Container {
   containerRef: String,
   owner: String,
+  source:String,
   location:String,
   destination:String,
   status:string,

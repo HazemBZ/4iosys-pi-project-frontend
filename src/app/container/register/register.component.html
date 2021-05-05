@@ -39,6 +39,18 @@
             <label for="arrival_time">Arrival</label>
             <input name="arrivalTime" [(ngModel)]="container.arrivalTime" type="date" class="form-control" id="arrivalTime" >
           </div>
+          <div class="form-group">
+            <label for="source_location">Source</label>
+            <select name="sourceLocation" class="form-control" id="sourceLocation" [(ngModel)]="container.source">
+              <option (click)="selectSource(country)" *ngFor="let country of countries" value="{{country}}">{{country}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="destination_location">Destination</label>
+            <select name="destinationLocation"  [(ngModel)]="container.destination" class="form-control" id="destinationLocation" >
+              <option (click)="selectDestination(country)" *ngFor="let country of countries" value="{{country}}">{{country}}</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary mr-2">Submit</button>
           <button class="btn btn-light">Cancel</button>
         </form>

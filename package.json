@@ -12,6 +12,8 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^3.0.0-beta.0",
+    "@amcharts/amcharts4": "^4.10.18",
+    "@amcharts/amcharts4-geodata": "^4.1.20",
     "@angular/animations": "~10.1.6",
     "@angular/cdk": "^10.2.5",
     "@angular/common": "~10.1.6",
@@ -61,7 +63,7 @@
     "zone.js": "~0.11.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1001.7",
+    "@angular-devkit/build-angular": "^0.1102.10",
     "@angular/cli": "^10.1.7",
     "@angular/compiler-cli": "~10.1.6",
     "@angular/language-service": "~10.1.6",
