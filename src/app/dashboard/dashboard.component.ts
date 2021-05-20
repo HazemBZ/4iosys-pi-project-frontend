@@ -191,11 +191,11 @@ export class DashboardComponent implements OnInit, AfterViewInit{
 
 
   selectContainerForMap(index){
-    alert(`container ${JSON.stringify(this.allContainers[index])}`)
+    // alert(`container ${JSON.stringify(this.allContainers[index])}`)
     let source = this.allContainers[index].source;
     let current = this.allContainers[index].location;
     let destination = this.allContainers[index].destination;
-    alert(`source: ${source}, current:${current}, destination:${destination}`)
+    // alert(`source: ${source}, current:${current}, destination:${destination}`)
 
     // let country = code_country.split(',')[1].trim();
     // alert(`"${country}" selected\n `);
@@ -219,7 +219,7 @@ export class DashboardComponent implements OnInit, AfterViewInit{
       ]
     }]
 
-    alert(`line series ${this.lineSeries}`)
+    // alert(`line series ${this.lineSeries}`)
 
     // Image Series data update
     this.imageSeries.data = [{
